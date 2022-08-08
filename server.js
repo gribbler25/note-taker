@@ -45,22 +45,22 @@ app.get("/api/notes", async (req, res) => {
 });
 
 //attmepted to set up a delete route for the front end code. returning 404 currently
-app.DELETE("/api/notes/:id", async (req, res) => {
-  // console.info(`${req.method} request received to delete note`);
-  const deletedNote = res;
-  const newArray = [];
-  const notesData = JSON.parse(await readNotes());
-  notesData.forEach((element) => {
-    if (element.id !== deletedNote) newArray.push(element);
-  });
-  const newFile = await writeNotes(newArray);
-  const response = {
-    status: "success",
-    body: newFile,
-  };
-  console.log(response);
-  res.json(response);
-});
+// app.DELETE("/api/notes/:id", async (req, res) => {
+//   // console.info(`${req.method} request received to delete note`);
+//   const deletedNote = res;
+//   const newArray = [];
+//   const notesData = JSON.parse(await readNotes());
+//   notesData.forEach((element) => {
+//     if (element.id !== deletedNote) newArray.push(element);
+//   });
+//   const newFile = await writeNotes(newArray);
+//   const response = {
+//     status: "success",
+//     body: newFile,
+//   };
+//   console.log(response);
+//   res.json(response);
+// });
 
 //POst (api/notes) receives new note from client to save on req body,  adds note to the db.json file, then return the new note to the client--need to give each note a unique id when it's saved
 app.post("/api/notes", async (req, res) => {
