@@ -1,5 +1,5 @@
+//able to use async/ await and not callbacks throughout now
 const fs = require("fs/promises");
-
 const path = require("path");
 const { v4: uuidv4 } = require("uuid"); //uuidv4();..returns unique id.
 const express = require("express");
@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
+//cleaner way to encapsulate the read/ write file in fxn that can be used again
 function readNotes() {
   return fs.readFile("./db/db.json", "utf8"); // connected to using async/ await (.then also an option)
 }
@@ -39,14 +40,29 @@ app.get("/api/notes", async (req, res) => {
   //     throw err;
   //   }
   //   const notesData = JSON.parse(data);
-  //   console.log(typeof notesData);
-
   //   res.json(notesData);
   // });
 });
 
-//POst (api/notes) receives new note from client to save on req body,  adds note to the db.json file, then return the new note to the client--need to give each note a unique id when it's saved(npm package to do this??)
+//attmepted to set up a delete route for the front end code. returning 404 currently
+app.DELETE("/api/notes/:id", async (req, res) => {
+  // console.info(`${req.method} request received to delete note`);
+  const deletedNote = res;
+  const newArray = [];
+  const notesData = JSON.parse(await readNotes());
+  notesData.forEach((element) => {
+    if (element.id !== deletedNote) newArray.push(element);
+  });
+  const newFile = await writeNotes(newArray);
+  const response = {
+    status: "success",
+    body: newFile,
+  };
+  console.log(response);
+  res.json(response);
+});
 
+//POst (api/notes) receives new note from client to save on req body,  adds note to the db.json file, then return the new note to the client--need to give each note a unique id when it's saved
 app.post("/api/notes", async (req, res) => {
   console.info(`${req.method} request received to add a note`);
   const notesData = JSON.parse(await readNotes());
@@ -62,24 +78,7 @@ app.post("/api/notes", async (req, res) => {
     console.log(newNote);
     notesData.push(newNote);
     writeNotes(notesData);
-    //obtain existing notes from db file..
-    // fs.readFile("./db/db.json", "utf8", (err, notes) => {
-    //   if (err) throw err;
-    //   //convert string notes into a JSON object
-    //   const parsedNotes = JSON.parse(notes);
-    //   //push new note object to this array of objects
 
-    //   //write to the db file again with the new note added
-    //   fs.writeFile(
-    //     "./db/db.json",
-    //     JSON.stringify(parsedNotes, null, 4),
-    //     (err) => {
-    //       if (err) {
-    //         throw err;
-    //       } else console.info("Successfully updated note!");
-    //     }
-    //   );
-    // });
     const response = {
       status: "success",
       body: newNote,
