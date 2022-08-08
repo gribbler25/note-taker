@@ -26,6 +26,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
+  //goes through the backend api 'get' route established on server.js
   fetch("/api/notes", {
     method: "GET",
     headers: {
@@ -33,7 +34,9 @@ const getNotes = () =>
     },
   });
 
-const saveNote = (note) =>
+const saveNote = (
+  note // goes through the server.js api 'post' route established. that route puts the note in the database.
+) =>
   fetch("/api/notes", {
     method: "POST",
     headers: {
@@ -67,6 +70,7 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
+  //  this is directly linked to Event Handler on save icon
   const newNote = {
     title: noteTitle.value.trim(),
     text: noteText.value.trim(),
@@ -116,8 +120,9 @@ const handleRenderSaveBtn = () => {
   }
 };
 
-// Render the list of note titles
+// ***Render the list of note titles--this gets it to display on dyn-generated html
 const renderNoteList = async (notes) => {
+  console.log(notes);
   let jsonNotes = await notes.json();
   if (window.location.pathname === "/notes") {
     noteList.forEach((el) => (el.innerHTML = ""));
@@ -166,7 +171,13 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList());
+// this is 2 more fxns inside a fxn already coming from an async parent function..
+const getAndRenderNotes = () => getNotes().then(renderNoteList);
+
+//   (notes) => {
+//   console.log(notes);
+//   renderNoteList(notes);
+// });
 
 if (window.location.pathname === "/notes") {
   saveNoteBtn.addEventListener("click", handleNoteSave);
