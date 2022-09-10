@@ -2,7 +2,7 @@
 # note-taker
 
 ## Project Description:
-   This project is about creating a simple way for the user to create and save brief notes for organization.
+   This project is about creating a simple way for the user to create, delete and save brief notes for organization.
   </br>
   ## Built with:
   - Express.js
