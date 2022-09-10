@@ -1,10 +1,5 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "id": "0"
-    },
-    {
         "title": "Server.js",
         "text": "Fix this file!",
         "id": "ea99f131-4a1f-4514-bf21-8d2ff2fd0363"
@@ -45,23 +40,13 @@
         "id": "7fd42bfa-c3da-4215-9214-47786449535e"
     },
     {
-        "title": "gigiggigi",
-        "text": "gigigeeee",
-        "id": "b7da20ea-b269-4448-9923-edac4041a8fa"
-    },
-    {
-        "title": "dfgdf",
-        "text": "dfgdfgdfg",
-        "id": "0ff416aa-e80e-4771-9f93-dfd6dafbdd3a"
-    },
-    {
-        "title": "sdlfkjsdflsj",
-        "text": "sdfsd",
-        "id": "ac9dfd53-ac4a-4adb-b45a-6205fe1d8214"
-    },
-    {
         "title": "cats",
         "text": "walk cats",
         "id": "98daff84-7e60-4838-93cd-89eacc14c361"
+    },
+    {
+        "title": "You Cot this",
+        "text": "I don't got it",
+        "id": "8cb3785b-ac99-4757-82bb-a62e4bd37bb9"
     }
 ]

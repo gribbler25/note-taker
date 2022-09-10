@@ -34,39 +34,34 @@ app.get("/api/notes", async (req, res) => {
   } catch (err) {
     throw new Error(err);
   }
-
-  // fs.readFile("./db/db.json", "utf8", (err, data) => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   const notesData = JSON.parse(data);
-  //   res.json(notesData);
-  // });
 });
 
-//attmepted to set up a delete route for the front end code. returning 404 currently
-// app.DELETE("/api/notes/:id", async (req, res) => {
-//   // console.info(`${req.method} request received to delete note`);
-//   const deletedNote = res;
-//   const newArray = [];
-//   const notesData = JSON.parse(await readNotes());
-//   notesData.forEach((element) => {
-//     if (element.id !== deletedNote) newArray.push(element);
-//   });
-//   const newFile = await writeNotes(newArray);
-//   const response = {
-//     status: "success",
-//     body: newFile,
-//   };
-//   console.log(response);
-//   res.json(response);
-// });
+//attmepted to set up a delete route for the front end code. returning 404 currently..
+app.delete("/api/notes/:id", async (req, res) => {
+  // console.info(`${req.method} request received to delete note`);
+  const noteId = req.params.id;
+  const newArray = [];
+  const notesData = JSON.parse(await readNotes());
+  notesData.forEach((element) => {
+    if (element.id !== noteId) newArray.push(element);
+  });
+  const newFile = await writeNotes(newArray);
+  const response = {
+    status: "success",
+    body: newFile,
+  };
+  console.log(response);
+  res.json(response);
+});
 
 //POst (api/notes) receives new note from client to save on req body,  adds note to the db.json file, then return the new note to the client--need to give each note a unique id when it's saved
 app.post("/api/notes", async (req, res) => {
   console.info(`${req.method} request received to add a note`);
+
   const notesData = JSON.parse(await readNotes());
+
   const { title, text } = req.body;
+
   console.log(title, text);
   if (title && text) {
     // Variable for the object we will save
